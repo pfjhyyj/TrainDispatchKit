@@ -87,6 +87,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a751810725263dfa353ab0c6c96fdd59a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a10e95ed5a9606d30e50363971890a866"><td class="memItemLeft" align="right" valign="top">const <a class="el" href="classXXYY_1_1CarriageBuffers.html">CarriageBuffers</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classXXYY_1_1CarriageDipatcher.html#a10e95ed5a9606d30e50363971890a866">Buffers</a> () const</td></tr>
 <tr class="separator:a10e95ed5a9606d30e50363971890a866"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aeca012347d8102f747bfb6a2639aa796"><td class="memItemLeft" align="right" valign="top">CarriageBuffers::BufferPtr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classXXYY_1_1CarriageDipatcher.html#aeca012347d8102f747bfb6a2639aa796">Buffer</a> (size_t buffer_index) const</td></tr>
+<tr class="separator:aeca012347d8102f747bfb6a2639aa796"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad2808daf8db1d1bb4afdda1e7f7f6e10"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classXXYY_1_1CarriageDipatcher.html#ad2808daf8db1d1bb4afdda1e7f7f6e10">buffers_size</a> () const</td></tr>
 <tr class="separator:ad2808daf8db1d1bb4afdda1e7f7f6e10"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -132,6 +134,31 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="aeca012347d8102f747bfb6a2639aa796"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeca012347d8102f747bfb6a2639aa796">&sect;&nbsp;</a></span>Buffer()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">CarriageBuffers::BufferPtr CarriageDipatcher::Buffer </td>
+          <td>(</td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>buffer_index</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>get specific buffer from carriage buffers </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">buffer_index</td><td>index of the wanted buffer </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the pointer to the buffer, nullptr if out of range </dd></dl>
+
+</div>
+</div>
 <a id="a10e95ed5a9606d30e50363971890a866"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a10e95ed5a9606d30e50363971890a866">&sect;&nbsp;</a></span>Buffers()</h2>
 
