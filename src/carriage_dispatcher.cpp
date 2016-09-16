@@ -1,4 +1,5 @@
 #include "carriage_dispatcher.h"
+#include <utility>
 
 using XXYY::CarriageDipatcher;
 using XXYY::CarriageBuffers;
@@ -29,6 +30,11 @@ void CarriageDipatcher::ContinueFor(uint32_t step_num) {
         buffers_.Push(carriage_queue_.front());
         carriage_queue_.pop_front();
     } while (--step_num);
+}
+
+CarriageBuffers::BufferPtr
+CarriageDipatcher::Buffer(size_t buffer_index) const {
+    return buffers_.Buffer(buffer_index);
 }
 
 size_t CarriageDipatcher::buffers_size() const {

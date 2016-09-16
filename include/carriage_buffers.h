@@ -12,7 +12,7 @@ class CarriageBuffers {
   public:
     using CarriageBuffer = std::vector<Carriage>;
 
-    using BufferPtr = std::shared_ptr<const CarriageBuffer>;
+    using BufferPtr = std::unique_ptr<const CarriageBuffer>;
 
     /**
      * construct specify the max number of destination
@@ -47,7 +47,7 @@ class CarriageBuffers {
      * @return              a pointer point to the specified buffer, or nullptr
      *                      if the index is out of range of buffers
      */
-    const BufferPtr Buffer(const std::size_t buffer_index) const;
+    BufferPtr Buffer(const std::size_t buffer_index) const;
 
     /**
      * getter for current number of total buffer
