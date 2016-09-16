@@ -49,7 +49,18 @@ class CarriageBuffers {
      */
     const BufferPtr Buffer(const std::size_t buffer_index) const;
 
+    /**
+     * getter for current number of total buffer
+     * @return the number of buffer in buffers
+     */
+    std::vector<CarriageBuffer>::size_type size() const;
+
   private:
+    /**
+     * allocate new buffer for the buffers
+     */
+    void AllocateBuffer();
+
     /**
      * carriage buffers
      */
