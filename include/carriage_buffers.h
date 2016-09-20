@@ -3,6 +3,7 @@
 
 #include "carriage.h"
 #include <cstdint>
+#include <list>
 #include <memory>
 #include <vector>
 
@@ -10,7 +11,7 @@ namespace XXYY {
 
 class CarriageBuffers {
   public:
-    using CarriageBuffer = std::vector<Carriage>;
+    using CarriageBuffer = std::list<Carriage>;
 
     using BufferPtr = std::unique_ptr<const CarriageBuffer>;
 
@@ -55,6 +56,12 @@ class CarriageBuffers {
      */
     std::vector<CarriageBuffer>::size_type size() const;
 
+    /**
+     * getter for maximum number of buffer in history
+     * @return the maximum number of buffer
+     */
+    uint32_t max_buffer_used() const;
+
   private:
     /**
      * allocate new buffer for the buffers
@@ -70,6 +77,11 @@ class CarriageBuffers {
      * current max number need to pop
      */
     uint32_t max_num_;
+
+    /**
+     * records the maximum buffer used in history
+     */
+    uint32_t max_buffer_used_;
 };
 
 } // namespace XXYY
