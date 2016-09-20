@@ -69,8 +69,7 @@ void CarriageBuffers::Push(const Carriage &carriage) {
     }
 }
 
-std::vector<CarriageBuffers::CarriageBuffer>::size_type
-CarriageBuffers::size() const {
+CarriageBuffers::BuffersType::size_type CarriageBuffers::size() const {
     return carriage_buffers_.size();
 }
 
