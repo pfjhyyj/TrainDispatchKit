@@ -11,9 +11,17 @@ namespace XXYY {
 
 class CarriageBuffers {
   public:
-    using CarriageBuffer = std::list<Carriage>;
+    /**
+     * use vector to represent carriages in a single buffer
+     */
+    using CarriageBuffer = std::vector<Carriage>;
 
     using BufferPtr = std::unique_ptr<const CarriageBuffer>;
+
+    /**
+     * using list to contain buffers
+     */
+    using BuffersType = std::list<CarriageBuffer>;
 
     /**
      * construct specify the max number of destination
@@ -54,7 +62,7 @@ class CarriageBuffers {
      * getter for current number of total buffer
      * @return the number of buffer in buffers
      */
-    std::vector<CarriageBuffer>::size_type size() const;
+    BuffersType::size_type size() const;
 
     /**
      * getter for maximum number of buffer in history
@@ -71,7 +79,7 @@ class CarriageBuffers {
     /**
      * carriage buffers
      */
-    std::vector<CarriageBuffer> carriage_buffers_;
+    BuffersType carriage_buffers_;
 
     /**
      * current max number need to pop

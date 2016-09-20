@@ -10,7 +10,9 @@ CarriageBuffers::CarriageBuffers(const uint32_t max_destination_num)
 CarriageBuffers::BufferPtr
 CarriageBuffers::Buffer(const std::size_t buffer_index) const {
     if (buffer_index < carriage_buffers_.size()) {
-        return BufferPtr(&carriage_buffers_[buffer_index]);
+        auto ret_iter = carriage_buffers_.begin();
+        std::advance(ret_iter, buffer_index);
+        return BufferPtr(&(*ret_iter));
     }
     return nullptr;
 }
