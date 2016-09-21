@@ -20,9 +20,9 @@ using XXYY::CarriageDipatcher;
 using XXYY::Carriage;
 
 TrainDispatchKitUI::TrainDispatchKitUI() {
-    quit  = false;
-    queue_exist = false;
-    m_steps = 0;
+    quit_  = false;
+    queue_exist_ = false;
+    m_steps_ = 0;
     StartScreen();
 }
 
@@ -31,7 +31,7 @@ TrainDispatchKitUI::~TrainDispatchKitUI() {
 }
 
 void TrainDispatchKitUI::OperationLoop() {
-    while (!quit) {
+    while (!quit_) {
         cout << "Command << ";
         string cmd;
         cin >> cmd;
@@ -80,7 +80,7 @@ void TrainDispatchKitUI::ExecuteCommand(string cmd) {
     else if (cmd == "ctn"  || cmd == "c") { ContinueForSteps(); }
     else if (cmd == "ctf") { ContinueUntilFinish(); }
     else if (cmd == "check") { CheckBuffer(); }
-    else if (cmd == "quit"  || cmd == "q") { quit = true; }
+    else if (cmd == "quit"  || cmd == "q") { quit_ = true; }
     else if (cmd == "total") { GetBufferNum(); }
     else if (cmd == "new") { CreateQueue(); }
     else { cout << "ERROR: Command Not Found!" << endl; }
@@ -100,19 +100,19 @@ void TrainDispatchKitUI::CreateQueue() {
         carriageQueue.push_back(carriage_des);
     }
     reverse(carriageQueue.begin(), carriageQueue.end());
-    dispatcher.reset(new CarriageDipatcher(carriageQueue));
-    queue_exist = true;
-    m_steps = 0;
+    dispatcher_.reset(new CarriageDipatcher(carriageQueue));
+    queue_exist_ = true;
+    m_steps_ = 0;
 }
 
 void TrainDispatchKitUI::GetBufferNum() {
-    int BufferNum = dispatcher->buffers_used();
+    int BufferNum = dispatcher_->buffers_used();
     cout << BufferNum << " buffer(s) used." << endl;
-    cout << m_steps << " steps" << endl;
+    cout << m_steps_ << " steps" << endl;
 }
 
 void TrainDispatchKitUI::ContinueForSteps() {
-    if (!queue_exist) {
+    if (!queue_exist_) {
         cout << "ERROR: You do not have a queue yet." << endl;
         return;
     }
@@ -120,7 +120,7 @@ void TrainDispatchKitUI::ContinueForSteps() {
     cout << "Number << ";
     uint32_t steps;
     cin >> steps;
-    auto result = dispatcher->ContinueFor(steps);
+    auto result = dispatcher_->ContinueFor(steps);
     if (result.back() != "Finish") {
         for (auto iter = result.begin(); iter != result.end(); iter++) {
             cout << *iter << endl;
@@ -130,41 +130,41 @@ void TrainDispatchKitUI::ContinueForSteps() {
         for (auto iter = result.begin(); iter != result.end(); iter++) {
             cout << *iter << endl;
         }
-        m_steps += result.size();
+        m_steps_ += result.size();
     }
 }
 
 void TrainDispatchKitUI::ContinueUntilFinish() {
-	if (!queue_exist) {
+	if (!queue_exist_) {
         cout << "ERROR: You do not have a queue yet." << endl;
         return;
     }
-    auto result = dispatcher->NextStep();
+    auto result = dispatcher_->NextStep();
     while (result != "Finish") {
         cout << result << endl;
-        m_steps++;
-        result = dispatcher->NextStep();
+        m_steps_++;
+        result = dispatcher_->NextStep();
     }
     cout << "Finish dispatching" << endl;
-    int max_size = dispatcher->buffers_used();
+    int max_size = dispatcher_->buffers_used();
     cout << "The used buffer amount is " << max_size << endl;
-    cout << m_steps << " steps" << endl;
+    cout << m_steps_ << " steps" << endl;
 }
 
 void TrainDispatchKitUI::NextStep() {
-    if (!queue_exist) {
+    if (!queue_exist_) {
         cout << "ERROR: You do not have a queue yet." << endl;
         return;
     }
     cout << "Calculating the next step...success!" << endl;
-    auto result = dispatcher->NextStep();
+    auto result = dispatcher_->NextStep();
     if (result != "Finish") {
-        m_steps++;
+        m_steps_++;
     }
 }
 
 void TrainDispatchKitUI::CheckBuffer() {
-    if (!queue_exist) {
+    if (!queue_exist_) {
         cout << "ERROR: You do not have a queue yet." << endl;
         return;
     }
@@ -172,7 +172,7 @@ void TrainDispatchKitUI::CheckBuffer() {
     cout <<  "Number << ";
     size_t index;
     cin >> index;
-    auto buffer_ptr = dispatcher->Buffer(index);
+    auto buffer_ptr = dispatcher_->Buffer(index);
     if (buffer_ptr == nullptr) {
         cout << "ERROR: The buffer doesn't exist." << endl;
     } else {

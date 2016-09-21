@@ -25,8 +25,8 @@ class TrainDispatchKitUI {
     void CheckBuffer();
 
   private:
-    bool quit;
-    bool queue_exist;
-    int m_steps;
-    std::unique_ptr<XXYY::CarriageDipatcher> dispatcher;
+    bool quit_;
+    bool queue_exist_;
+    int m_steps_;
+    std::unique_ptr<XXYY::CarriageDipatcher> dispatcher_;
 };
