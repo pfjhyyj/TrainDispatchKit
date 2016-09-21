@@ -17,14 +17,20 @@ class CarriageBuffers {
      */
     using CarriageBuffer = std::vector<Carriage>;
 
+    /**
+     * the pointer representing a single buffer
+     */
     using BufferPtr = std::shared_ptr<CarriageBuffer>;
 
+    /**
+     * the pointer representing a single const buffer
+     */
     using ConstBufferPtr = std::shared_ptr<const CarriageBuffer>;
 
     /**
      * using list to contain buffers
      */
-    using BuffersType = std::list<BufferPtr>;
+    using BuffersType = std::vector<BufferPtr>;
 
     /**
      * construct specify the max number of destination
@@ -67,17 +73,11 @@ class CarriageBuffers {
      */
     BuffersType::size_type size() const;
 
-    /**
-     * getter the number of current buffer use
-     * @return the amount of buffer currently used
-     */
-    uint32_t buffer_used() const;
-
   private:
     /**
      * allocate new buffer for the buffers
      */
-    void AllocateBuffer();
+    CarriageBuffers::BufferPtr AllocateBuffer();
 
     /**
      * carriage buffers
@@ -85,14 +85,14 @@ class CarriageBuffers {
     BuffersType carriage_buffers_;
 
     /**
-     * current max number need to pop
-     */
-    uint32_t buffer_used_;
-
-    /**
      * carriage destination currently required for popping
      */
     uint32_t max_num_;
+
+    /**
+     * the order of allocated buffer
+     */
+    std::list<size_t> buffer_order_;
 };
 
 } // namespace XXYY
