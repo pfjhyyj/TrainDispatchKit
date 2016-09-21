@@ -2,6 +2,9 @@ CC := g++
 
 SRCDIR := src
 BUILDDIR := build
+BINDIR := bin
+TMPDIR := tmp
+DATADIR := data
 TARGET := bin/TRK
 
 SRCEXT := cpp
@@ -27,7 +30,8 @@ static-analyze:
 
 clean:
 	@echo " Cleaning... "
-	@echo " rm -rf $(BUILDDIR) $(TARGET)"; rm -rf $(BUILDDIR) $(TARGET)
+	@echo " rm -rf $(BUILDDIR) $(TARGET) $(BINDIR) $(DATADIR) $(TMPDIR)"; rm -rf \
+	$(BUILDDIR) $(TARGET) $(BINDIR) $(DATADIR) $(TMPDIR)
 
 
 .PHONY: clean

@@ -18,6 +18,9 @@ CarriageDipatcher::CarriageDipatcher(
 
 string CarriageDipatcher::NextStep() {
     auto step_strings = ContinueFor(1);
+    if (step_strings.empty()) {
+        return "Finish";
+    }
     return step_strings.front();
 }
 

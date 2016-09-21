@@ -101,7 +101,7 @@ void TrainDispatchKitUI::CreateQueue() {
 }
 
 void TrainDispatchKitUI::GetBufferNum() {
-    int BufferNum = dispatcher->buffers_used();
+    int BufferNum = dispatcher->buffers_max_size();
     cout << BufferNum << " buffer(s) used." << endl;
     cout << m_steps << " steps" << endl;
 }
@@ -115,18 +115,7 @@ void TrainDispatchKitUI::ContinueForSteps() {
     cout << "Number << ";
     uint32_t steps;
     cin >> steps;
-    auto result = dispatcher->ContinueFor(steps);
-    if (result.back() != "Finish") {
-        for (auto iter = result.begin(); iter != result.end(); iter++) {
-            cout << *iter << endl;
-        }
-    } else {
-        result.pop_back();
-        for (auto iter = result.begin(); iter != result.end(); iter++) {
-            cout << *iter << endl;
-        }
-        m_steps += result.size();
-    }
+    dispatcher->ContinueFor(steps);
 }
 
 void TrainDispatchKitUI::ContinueUntilFinish() {
@@ -134,14 +123,12 @@ void TrainDispatchKitUI::ContinueUntilFinish() {
         cout << "ERROR: You do not have a queue yet." << endl;
         return;
     }
-    auto result = dispatcher->NextStep();
-    while (result != "Finish") {
-        cout << result << endl;
-        m_steps++;
-        result = dispatcher->NextStep();
-    }
+    do {
+    	dispatcher->NextStep();
+    	m_steps++;
+    } while (dispatcher->buffers_size() != 0);
     cout << "Finish dispatching" << endl;
-    int max_size = dispatcher->buffers_used();
+    int max_size = dispatcher->buffers_max_size();
     cout << "The used buffer amount is " << max_size << endl;
     cout << m_steps << " steps" << endl;
 }
@@ -152,10 +139,7 @@ void TrainDispatchKitUI::NextStep() {
         return;
     }
     cout << "Calculating the next step...success!" << endl;
-    auto result = dispatcher->NextStep();
-    if (result != "Finish") {
-        m_steps++;
-    }
+    dispatcher->NextStep();
 }
 
 void TrainDispatchKitUI::CheckBuffer() {
