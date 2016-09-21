@@ -1,5 +1,5 @@
 #include <iostream>
-#include "train_dispatch_kit_ui.cpp"
+#include "train_dispatch_kit_ui.h"
 
 TrainDispatchKitUI trk_ui;
 
