@@ -32,11 +32,15 @@ void CarriageDipatcher::ContinueFor(uint32_t step_num) {
     } while (--step_num);
 }
 
-CarriageBuffers::BufferPtr
+CarriageBuffers::ConstBufferPtr
 CarriageDipatcher::Buffer(size_t buffer_index) const {
     return buffers_.Buffer(buffer_index);
 }
 
 size_t CarriageDipatcher::buffers_size() const {
     return buffers_.size();
+}
+
+size_t CarriageDipatcher::buffers_max_size() const {
+    return buffers_.max_buffer_used();
 }
