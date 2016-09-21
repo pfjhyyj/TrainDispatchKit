@@ -3,6 +3,7 @@
 
 #include "carriage.h"
 #include "carriage_buffers.h"
+#include "step.h"
 #include <cstdint>
 #include <deque>
 #include <limits>
@@ -27,13 +28,14 @@ class CarriageDipatcher {
     /**
      * continue for one more step
      */
-    void NextStep();
+    std::string NextStep();
 
     /**
      * continue for step_num steps, if not specified, continue to end
      * @param step_num steps need to continue, default to numeric_limit::max()
      */
-    void ContinueFor(uint32_t step_num = std::numeric_limits<uint32_t>::max());
+    std::vector<std::string>
+    ContinueFor(uint32_t step_num = std::numeric_limits<uint32_t>::max());
 
     /**
      * getter for buffers
@@ -50,15 +52,9 @@ class CarriageDipatcher {
 
     /**
      * return the number of buffer currently used
-     * @return the number of buffer
+     * @return the number of buffer currently allocated
      */
-    size_t buffers_size() const;
-
-    /**
-     * get buffers' max size in history
-     * @return the maximum buffer size in the previous procedure
-     */
-    size_t buffers_max_size() const;
+    size_t buffers_used() const;
 
   private:
     /**

@@ -2,6 +2,7 @@
 #define XXYY_CARRIAGE_BUFFERS_H
 
 #include "carriage.h"
+#include "step.h"
 #include <cstdint>
 #include <list>
 #include <memory>
@@ -34,22 +35,22 @@ class CarriageBuffers {
 
     /**
      * pop as many carriage as it can
-     * @return the number of carriage popped
+     * @return the steps taken by pops
      */
-    uint32_t PopAll();
+    std::vector<Step> PopAll();
 
     /**
      * pop some carriages from buffer
      * @param  pop_num the max number of carriage it'll pop
-     * @return         the number of carriage popped
+     * @return         the steps taken by pops
      */
-    uint32_t PopSome(uint32_t pop_num);
+    std::vector<Step> PopSome(uint32_t pop_num);
 
     /**
      * push a carriage to buffers
-     * @param carriage the carriage to be pushed
+     * @param the step taken by push
      */
-    void Push(const Carriage &carriage);
+    Step Push(const Carriage &carriage);
 
     /**
      * getter for a particular buffer in carriage buffers, nullptr if out of
@@ -67,10 +68,10 @@ class CarriageBuffers {
     BuffersType::size_type size() const;
 
     /**
-     * getter for maximum number of buffer in history
-     * @return the maximum number of buffer
+     * getter the number of current buffer use
+     * @return the amount of buffer currently used
      */
-    uint32_t max_buffer_used() const;
+    uint32_t buffer_used() const;
 
   private:
     /**
@@ -86,12 +87,12 @@ class CarriageBuffers {
     /**
      * current max number need to pop
      */
-    uint32_t max_num_;
+    uint32_t buffer_used_;
 
     /**
-     * records the maximum buffer used in history
+     * carriage destination currently required for popping
      */
-    uint32_t max_buffer_used_;
+    uint32_t max_num_;
 };
 
 } // namespace XXYY
