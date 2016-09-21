@@ -1,7 +1,6 @@
 #include <iostream>
 #include <vector>
 #include <stack>
-#include <cctype>
 #include "carriage.h"
 #include "carriage_buffers.h"
 #include "carriage_dispatcher.h"
