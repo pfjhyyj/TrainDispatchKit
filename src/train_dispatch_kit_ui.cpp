@@ -2,6 +2,7 @@
 #include <vector>
 #include <stack>
 #include <algorithm>
+#include <sstream>
 #include "carriage.h"
 #include "carriage_buffers.h"
 #include "carriage_dispatcher.h"
@@ -13,6 +14,7 @@ using std::endl;
 using std::string;
 using std::vector;
 using std::stack;
+using std::stringstream;
 using std::reverse;
 using XXYY::CarriageDipatcher;
 using XXYY::Carriage;
@@ -86,13 +88,16 @@ void TrainDispatchKitUI::ExecuteCommand(string cmd) {
 
 void TrainDispatchKitUI::CreateQueue() {
     cout << "Input a string as the queue.\n";
+    cout << "Every number has a space as separator.\n";
     cout << "(non-digit character will be automatically removed.)" << endl;
     cout << "String << ";
-    string queue;
-    cin >> queue;
+    string queue_Str;
+    getline(cin, queue_Str);
+    stringstream queue_Ss;
+    queue_Ss << queue_Str;
     vector<uint32_t> carriageQueue;
-    for (char ch : queue) {
-        if (isdigit(ch)) carriageQueue.push_back(ch - '0');
+    for (int carriage_des; queue_Ss >> carriage_des;) {
+        carriageQueue.push_back(carriage_des);
     }
     reverse(carriageQueue.begin(), carriageQueue.end());
     dispatcher.reset(new CarriageDipatcher(carriageQueue));
@@ -171,9 +176,14 @@ void TrainDispatchKitUI::CheckBuffer() {
     if (buffer_ptr == nullptr) {
         cout << "ERROR: The buffer doesn't exist." << endl;
     } else {
-        // TODO: Convert to stack?
-        cout << "Buffer " << index << " with carriages below: \n";
-        for (Carriage carriage : *buffer_ptr) {
+        // Convert buffer to the order of the real stack
+        vector<Carriage> buffer_stack;
+        for (auto it = (*buffer_ptr).rbegin(); it != (*buffer_ptr).rend(); it++) {
+            buffer_stack.push_back(*it);
+        }
+
+        cout << "Buffer " << index << " with carriages below (top-to-bottom): \n";
+        for (Carriage carriage : buffer_stack) {
             cout << "Carriage " << carriage.index;
             cout << " with destination " << carriage.destination << endl;
         }
