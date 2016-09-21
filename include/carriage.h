@@ -6,7 +6,7 @@
 namespace XXYY {
 
 struct Carriage {
-    Carriage(const int32_t a_destination, const int32_t a_index)
+    Carriage(const int32_t a_destination, const int32_t a_index = -1)
         : destination(a_destination), index(a_index) {}
 
     /**
