@@ -75,9 +75,12 @@ class CarriageBuffers {
 
   private:
     /**
-     * allocate new buffer for the buffers
+     * allocate new buffer accordingly, return the new buffer and the index of
+     * the buffer
+     * @param  index the new buffer's index
+     * @return       the pointer to the new buffer
      */
-    CarriageBuffers::BufferPtr AllocateBuffer();
+    CarriageBuffers::BufferPtr AllocateBuffer(size_t *const index);
 
     /**
      * carriage buffers
