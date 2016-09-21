@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <stack>
+#include <algorithm>
 #include "carriage.h"
 #include "carriage_buffers.h"
 #include "carriage_dispatcher.h"
@@ -12,12 +13,14 @@ using std::endl;
 using std::string;
 using std::vector;
 using std::stack;
+using std::reverse;
 using XXYY::CarriageDipatcher;
 using XXYY::Carriage;
 
 TrainDispatchKitUI::TrainDispatchKitUI() {
     quit  = false;
     queue_exist = false;
+    m_steps = 0;
     StartScreen();
 }
 
@@ -63,6 +66,7 @@ void TrainDispatchKitUI::StartScreen() {
     cout << "     new - create new carriage queue\n";
     cout << "     next (n) - next step\n";
     cout << "     ctn (c) - continue for some steps\n";
+    cout << "     ctf - continue until finish\n";
     cout << "     check - check a certain buffer and show its detail\n";
     cout << "     total - show total number of the buffer\n";
     cout << "     quit (q) - quit trk" << endl;
@@ -72,6 +76,7 @@ void TrainDispatchKitUI::StartScreen() {
 void TrainDispatchKitUI::ExecuteCommand(string cmd) {
     if (cmd == "next" || cmd == "n") { NextStep(); }
     else if (cmd == "ctn"  || cmd == "c") { ContinueForSteps(); }
+    else if (cmd == "ctf") { ContinueUntilFinish(); }
     else if (cmd == "check") { CheckBuffer(); }
     else if (cmd == "quit"  || cmd == "q") { quit = true; }
     else if (cmd == "total") { GetBufferNum(); }
@@ -89,13 +94,16 @@ void TrainDispatchKitUI::CreateQueue() {
     for (char ch : queue) {
         if (isdigit(ch)) carriageQueue.push_back(ch - '0');
     }
+    reverse(carriageQueue.begin(), carriageQueue.end());
     dispatcher.reset(new CarriageDipatcher(carriageQueue));
     queue_exist = true;
+    m_steps = 0;
 }
 
 void TrainDispatchKitUI::GetBufferNum() {
-    int BufferNum = dispatcher->buffers_size();
-    cout << "Now " << BufferNum << " buffer(s) exist." << endl;
+    int BufferNum = dispatcher->buffers_max_size();
+    cout << BufferNum << " buffer(s) used." << endl;
+    cout << m_steps << " steps" << endl;
 }
 
 void TrainDispatchKitUI::ContinueForSteps() {
@@ -108,6 +116,21 @@ void TrainDispatchKitUI::ContinueForSteps() {
     uint32_t steps;
     cin >> steps;
     dispatcher->ContinueFor(steps);
+}
+
+void TrainDispatchKitUI::ContinueUntilFinish() {
+	if (!queue_exist) {
+        cout << "ERROR: You do not have a queue yet." << endl;
+        return;
+    }
+    do {
+    	dispatcher->NextStep();
+    	m_steps++;
+    } while (dispatcher->buffers_size() != 0);
+    cout << "Finish dispatching" << endl;
+    int max_size = dispatcher->buffers_max_size();
+    cout << "The used buffer amount is " << max_size << endl;
+    cout << m_steps << " steps" << endl;
 }
 
 void TrainDispatchKitUI::NextStep() {

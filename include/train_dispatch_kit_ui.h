@@ -18,6 +18,8 @@ class TrainDispatchKitUI {
 
     void ContinueForSteps();
 
+    void ContinueUntilFinish();
+
     void NextStep();
 
     void CheckBuffer();
@@ -25,5 +27,6 @@ class TrainDispatchKitUI {
   private:
     bool quit;
     bool queue_exist;
+    int m_steps;
     std::unique_ptr<XXYY::CarriageDipatcher> dispatcher;
 };
