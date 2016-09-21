@@ -46,13 +46,19 @@ class CarriageDipatcher {
      * @param  buffer_index index of the wanted buffer
      * @return              the pointer to the buffer, nullptr if out of range
      */
-    CarriageBuffers::BufferPtr Buffer(size_t buffer_index) const;
+    CarriageBuffers::ConstBufferPtr Buffer(size_t buffer_index) const;
 
     /**
      * return the number of buffer currently used
      * @return the number of buffer
      */
     size_t buffers_size() const;
+
+    /**
+     * get buffers' max size in history
+     * @return the maximum buffer size in the previous procedure
+     */
+    size_t buffers_max_size() const;
 
   private:
     /**
