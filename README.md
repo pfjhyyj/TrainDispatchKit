@@ -43,3 +43,13 @@ check - check a certain buffer and show its detail
 total - show total number of the buffer
 
 quit (q) - quit trk
+
+# build
+
+cmake is requried
+
+```
+cd build
+cmake -G "the type of output" ..
+
+```
