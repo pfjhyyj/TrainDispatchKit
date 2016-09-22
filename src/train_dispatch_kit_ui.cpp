@@ -95,13 +95,13 @@ void TrainDispatchKitUI::CreateQueue() {
     cout << "Every number has a space as separator.\n";
     cout << "(non-digit character will be automatically removed.)" << endl;
     cout << "String << ";
-    string queue_Str;
+    string queue_str;
     cin.clear();
-    getline(cin, queue_Str);
-    stringstream queue_Ss;
-    queue_Ss << queue_Str;
+    getline(cin, queue_str);
+    stringstream queue_ss;
+    queue_ss << queue_str;
     vector<uint32_t> carriageQueue;
-    for (int carriage_des; queue_Ss >> carriage_des;) {
+    for (int carriage_des; queue_ss >> carriage_des;) {
         carriageQueue.push_back(carriage_des);
     }
     reverse(carriageQueue.begin(), carriageQueue.end());
