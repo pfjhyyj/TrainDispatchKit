@@ -45,6 +45,7 @@ std::vector<Step> CarriageBuffers::PopSome(uint32_t pop_num) {
                     buffer_order_.remove(i);
                 }
                 --max_num_;
+                break;
             }
         }
         if (not find) {

@@ -94,6 +94,8 @@ void TrainDispatchKitUI::ExecuteCommand(string cmd) {
         GetBufferNum();
     } else if (cmd == "new") {
         CreateQueue();
+    } else if (cmd == "") {
+        return;
     } else {
         cout << "ERROR: Command Not Found!" << endl;
     }
@@ -142,6 +144,7 @@ void TrainDispatchKitUI::ContinueForSteps() {
     cout << "Continue> ";
     uint32_t steps;
     cin >> steps;
+    cin.get();
     auto result = dispatcher_->ContinueFor(steps);
     if (result.back() != "Finish") {
         for (auto iter = result.begin(); iter != result.end(); iter++) {
