@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['buffer',['Buffer',['../classXXYY_1_1CarriageBuffers.html#a40134e635bff04a8d8cbe1ecd0452955',1,'XXYY::CarriageBuffers::Buffer()'],['../classXXYY_1_1CarriageDipatcher.html#aeca012347d8102f747bfb6a2639aa796',1,'XXYY::CarriageDipatcher::Buffer()']]],
-  ['buffers',['Buffers',['../classXXYY_1_1CarriageDipatcher.html#a10e95ed5a9606d30e50363971890a866',1,'XXYY::CarriageDipatcher']]],
-  ['buffers_5fsize',['buffers_size',['../classXXYY_1_1CarriageDipatcher.html#ad2808daf8db1d1bb4afdda1e7f7f6e10',1,'XXYY::CarriageDipatcher']]]
+  ['buffer',['Buffer',['../classXXYY_1_1CarriageBuffers.html#a50a0d9711bef26212194ebd68b44af97',1,'XXYY::CarriageBuffers::Buffer()'],['../classXXYY_1_1CarriageDipatcher.html#a8d9e31ce5564c791a28a0da2f61fc49c',1,'XXYY::CarriageDipatcher::Buffer()']]],
+  ['buffers',['Buffers',['../classXXYY_1_1CarriageDipatcher.html#a9e293b559e5a7feb56f46fc1912c3b71',1,'XXYY::CarriageDipatcher']]],
+  ['buffers_5fused',['buffers_used',['../classXXYY_1_1CarriageDipatcher.html#a1047bd0d43ca7b917ab1860a1f2b6d3a',1,'XXYY::CarriageDipatcher']]]
 ];
