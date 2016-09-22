@@ -1,12 +1,12 @@
-#include <iostream>
-#include <vector>
-#include <stack>
-#include <algorithm>
-#include <sstream>
+#include "train_dispatch_kit_ui.h"
 #include "carriage.h"
 #include "carriage_buffers.h"
 #include "carriage_dispatcher.h"
-#include "train_dispatch_kit_ui.h"
+#include <algorithm>
+#include <iostream>
+#include <sstream>
+#include <stack>
+#include <vector>
 
 using std::cout;
 using std::cin;
@@ -15,12 +15,13 @@ using std::string;
 using std::vector;
 using std::stack;
 using std::stringstream;
+using std::istringstream;
 using std::reverse;
 using XXYY::CarriageDipatcher;
 using XXYY::Carriage;
 
 TrainDispatchKitUI::TrainDispatchKitUI() {
-    quit_  = false;
+    quit_ = false;
     queue_exist_ = false;
     m_steps_ = 0;
     StartScreen();
@@ -32,9 +33,11 @@ TrainDispatchKitUI::~TrainDispatchKitUI() {
 
 void TrainDispatchKitUI::OperationLoop() {
     while (!quit_) {
-        cout << "Command << ";
+        cout << "TRK> ";
         string cmd;
-        cin >> cmd;
+        getline(cin, cmd);
+        istringstream iss(cmd);
+        iss >> cmd;
         ExecuteCommand(cmd);
     }
 }
@@ -72,18 +75,28 @@ void TrainDispatchKitUI::StartScreen() {
     cout << "     check - check a certain buffer and show its detail\n";
     cout << "     total - show total number of the buffer\n";
     cout << "     quit (q) - quit trk" << endl;
-    cout << "----------------------------------------------------------" << endl;
+    cout << "----------------------------------------------------------"
+         << endl;
 }
 
 void TrainDispatchKitUI::ExecuteCommand(string cmd) {
-    if (cmd == "next" || cmd == "n") { NextStep(); }
-    else if (cmd == "ctn"  || cmd == "c") { ContinueForSteps(); }
-    else if (cmd == "ctf") { ContinueUntilFinish(); }
-    else if (cmd == "check") { CheckBuffer(); }
-    else if (cmd == "quit"  || cmd == "q") { quit_ = true; }
-    else if (cmd == "total") { GetBufferNum(); }
-    else if (cmd == "new") { CreateQueue(); }
-    else { cout << "ERROR: Command Not Found!" << endl; }
+    if (cmd == "next" || cmd == "n") {
+        NextStep();
+    } else if (cmd == "ctn" || cmd == "c") {
+        ContinueForSteps();
+    } else if (cmd == "ctf") {
+        ContinueUntilFinish();
+    } else if (cmd == "check") {
+        CheckBuffer();
+    } else if (cmd == "quit" || cmd == "q") {
+        quit_ = true;
+    } else if (cmd == "total") {
+        GetBufferNum();
+    } else if (cmd == "new") {
+        CreateQueue();
+    } else {
+        cout << "ERROR: Command Not Found!" << endl;
+    }
 }
 
 void TrainDispatchKitUI::CreateQueue() {
@@ -94,12 +107,11 @@ void TrainDispatchKitUI::CreateQueue() {
     cout << "Input a string as the queue.\n";
     cout << "Every number has a space as separator.\n";
     cout << "(non-digit character will be automatically removed.)" << endl;
-    cout << "String << ";
+    cout << "CreateQueue> ";
     string queue_str;
     cin.clear();
     getline(cin, queue_str);
-    stringstream queue_ss;
-    queue_ss << queue_str;
+    istringstream queue_ss(queue_str);
     vector<uint32_t> carriageQueue;
     for (int carriage_des; queue_ss >> carriage_des;) {
         carriageQueue.push_back(carriage_des);
@@ -125,8 +137,9 @@ void TrainDispatchKitUI::ContinueForSteps() {
         cout << "ERROR: You do not have a queue yet." << endl;
         return;
     }
-    cout << "Please enter the number of steps that you want to continue for." << endl;
-    cout << "Number << ";
+    cout << "Please enter the number of steps that you want to continue for."
+         << endl;
+    cout << "Continue> ";
     uint32_t steps;
     cin >> steps;
     auto result = dispatcher_->ContinueFor(steps);
@@ -144,7 +157,7 @@ void TrainDispatchKitUI::ContinueForSteps() {
 }
 
 void TrainDispatchKitUI::ContinueUntilFinish() {
-	if (!queue_exist_) {
+    if (!queue_exist_) {
         cout << "ERROR: You do not have a queue yet." << endl;
         return;
     }
@@ -165,11 +178,12 @@ void TrainDispatchKitUI::NextStep() {
         cout << "ERROR: You do not have a queue yet." << endl;
         return;
     }
-    cout << "Calculating the next step...success!" << endl;
+    // cout << "Calculating the next step...success!" << endl;
     auto result = dispatcher_->NextStep();
     if (result != "Finish") {
         m_steps_++;
     }
+    cout << result << '\n';
 }
 
 void TrainDispatchKitUI::CheckBuffer() {
@@ -178,7 +192,7 @@ void TrainDispatchKitUI::CheckBuffer() {
         return;
     }
     cout << "Please enter the index of the buffer.\n";
-    cout <<  "Number << ";
+    cout << "CheckBuffer> ";
     size_t index;
     cin >> index;
     auto buffer_ptr = dispatcher_->Buffer(index);
@@ -187,11 +201,13 @@ void TrainDispatchKitUI::CheckBuffer() {
     } else {
         // Convert buffer to the order of the real stack
         vector<Carriage> buffer_stack;
-        for (auto it = (*buffer_ptr).rbegin(); it != (*buffer_ptr).rend(); it++) {
+        for (auto it = (*buffer_ptr).rbegin(); it != (*buffer_ptr).rend();
+             it++) {
             buffer_stack.push_back(*it);
         }
 
-        cout << "Buffer " << index << " with carriages below (top-to-bottom): \n";
+        cout << "Buffer " << index
+             << " with carriages below (top-to-bottom): \n";
         for (Carriage carriage : buffer_stack) {
             cout << "Carriage " << carriage.index;
             cout << " with destination " << carriage.destination << endl;
