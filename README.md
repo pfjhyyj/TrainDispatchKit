@@ -24,5 +24,22 @@ Train dispatching system by 薛明淇，杨竣然，杨奕嘉，徐海洋
 
 # Usage
 
-## Commands
+While run the program, you should create a new queue first. Then, you could do any thing you want: control the program to solve the problem, check the buffer whenever youn want ...  and you are allowed to create another new queue just by typing command 'new' again.
 
+Enjoy yourself!
+
+# Commands
+
+new - create new carriage queue
+
+next (n) - next step
+
+ctn (c) - continue for some steps
+
+ctf - continue until finish
+
+check - check a certain buffer and show its detail
+
+total - show total number of the buffer
+
+quit (q) - quit trk
