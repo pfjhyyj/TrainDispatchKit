@@ -42,8 +42,8 @@ std::vector<Step> CarriageBuffers::PopSome(uint32_t pop_num) {
                 // deallocate buffer
                 if (buffer->empty()) {
                     buffer = nullptr;
+                    buffer_order_.remove(i);
                 }
-                buffer_order_.remove(i);
                 --max_num_;
             }
         }
