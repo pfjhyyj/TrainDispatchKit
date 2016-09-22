@@ -31,9 +31,15 @@ Enjoy yourself!
 # Commands
 
 new - create new carriage queue
+
 next (n) - next step
+
 ctn (c) - continue for some steps
+
 ctf - continue until finish
+
 check - check a certain buffer and show its detail
+
 total - show total number of the buffer
+
 quit (q) - quit trk
