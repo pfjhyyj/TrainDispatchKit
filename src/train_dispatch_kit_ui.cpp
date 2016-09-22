@@ -87,11 +87,16 @@ void TrainDispatchKitUI::ExecuteCommand(string cmd) {
 }
 
 void TrainDispatchKitUI::CreateQueue() {
+    if (queue_exist_) {
+        cout << "ERROR: You've already have a queue." << endl;
+        return;
+    }
     cout << "Input a string as the queue.\n";
     cout << "Every number has a space as separator.\n";
     cout << "(non-digit character will be automatically removed.)" << endl;
     cout << "String << ";
     string queue_Str;
+    cin.clear();
     getline(cin, queue_Str);
     stringstream queue_Ss;
     queue_Ss << queue_Str;
@@ -106,6 +111,10 @@ void TrainDispatchKitUI::CreateQueue() {
 }
 
 void TrainDispatchKitUI::GetBufferNum() {
+    if (!queue_exist_) {
+        cout << "ERROR: You do not have a queue yet." << endl;
+        return;
+    }
     int BufferNum = dispatcher_->buffers_used();
     cout << BufferNum << " buffer(s) used." << endl;
     cout << m_steps_ << " steps" << endl;
