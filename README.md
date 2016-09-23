@@ -51,5 +51,6 @@ cmake is requried
 ```
 cd build
 cmake -G "the type of output" ..
+cd ..
 
 ```
